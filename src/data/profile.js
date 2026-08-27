@@ -1,6 +1,7 @@
 export const profile = {
   name: '신규철',
   englishName: 'Kyuchul Shin',
+  hanjaName: '申奎澈',
   birthday: '1999.07.19',
   title: '풀스택 개발자',
   tagline: "사용자가 불편함을 느끼기 전에 먼저 찾아 없애는, '화면 뒤의 안정성'을 만드는 풀스택 개발자입니다.",
@@ -82,7 +83,7 @@ export const profile = {
   languages: [{ name: 'OPIc (영어)', level: 'IM1 (Intermediate Mid)', date: '2026.03.15' }],
   military: {
     status: '병역필',
-    detail: '육군 병장 만기제대',
+    detail: '육군 병장 (방공) 만기제대',
     period: '2019.08.26 ~ 2021.03.21',
   },
   awards: [

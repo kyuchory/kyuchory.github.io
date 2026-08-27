@@ -54,12 +54,6 @@ export default function Home() {
         <SectionTitle eyebrow="About" title="소개" />
         <p className="text-[15px] leading-relaxed text-[var(--color-text-soft)]">{profile.bio}</p>
 
-        {profile.military && (
-          <p className="mt-3 text-xs text-[var(--color-text-soft)]">
-            병역 · {profile.military.detail} ({profile.military.period})
-          </p>
-        )}
-
         <div className="mt-10 grid gap-6 sm:grid-cols-2">
           {profile.highlights.map((item) => (
             <div
@@ -72,6 +66,17 @@ export default function Home() {
               </p>
             </div>
           ))}
+        </div>
+
+        <div className="mt-8 space-y-1 text-sm text-[var(--color-text-soft)]">
+          <p>
+            {profile.name} · {profile.englishName} · {profile.hanjaName}
+          </p>
+          {profile.military && (
+            <p>
+              병역 · {profile.military.detail} ({profile.military.period})
+            </p>
+          )}
         </div>
       </section>
 
