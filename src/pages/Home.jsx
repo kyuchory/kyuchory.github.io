@@ -53,13 +53,23 @@ export default function Home() {
       <section id="about" className="scroll-mt-24 py-16">
         <SectionTitle eyebrow="About" title="소개" />
 
-        <div className="space-y-1 text-sm text-[var(--color-text-soft)]">
-          <p>
-            {profile.name} · {profile.englishName} · {profile.hanjaName} · {profile.birthday}
+        <div className="space-y-2 text-sm text-[var(--color-text-soft)]">
+          <p className="flex flex-wrap items-center gap-2">
+            <span className="rounded-full bg-[var(--color-accent-soft)] px-2.5 py-0.5 text-xs font-medium text-[var(--color-accent)]">
+              이름
+            </span>
+            <span>
+              {profile.name} · {profile.englishName} · {profile.hanjaName} · {profile.birthday}
+            </span>
           </p>
           {profile.military && (
-            <p>
-              병역 · {profile.military.detail} ({profile.military.period})
+            <p className="flex flex-wrap items-center gap-2">
+              <span className="rounded-full bg-[var(--color-accent-soft)] px-2.5 py-0.5 text-xs font-medium text-[var(--color-accent)]">
+                병역
+              </span>
+              <span>
+                {profile.military.detail} ({profile.military.period})
+              </span>
             </p>
           )}
         </div>
