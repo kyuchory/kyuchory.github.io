@@ -52,23 +52,8 @@ export default function Home() {
       {/* About */}
       <section id="about" className="scroll-mt-24 py-16">
         <SectionTitle eyebrow="About" title="소개" />
-        <p className="text-[15px] leading-relaxed text-[var(--color-text-soft)]">{profile.bio}</p>
 
-        <div className="mt-10 grid gap-6 sm:grid-cols-2">
-          {profile.highlights.map((item) => (
-            <div
-              key={item.title}
-              className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5"
-            >
-              <h3 className="text-[15px] font-semibold text-[var(--color-text)]">{item.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-[var(--color-text-soft)]">
-                {item.description}
-              </p>
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-8 space-y-1 text-sm text-[var(--color-text-soft)]">
+        <div className="space-y-1 text-sm text-[var(--color-text-soft)]">
           <p>
             {profile.name} · {profile.englishName} · {profile.hanjaName} · {profile.birthday}
           </p>
@@ -78,6 +63,8 @@ export default function Home() {
             </p>
           )}
         </div>
+
+        <p className="mt-6 text-[15px] leading-relaxed text-[var(--color-text-soft)]">{profile.bio}</p>
       </section>
 
       {/* Skills */}
@@ -225,6 +212,9 @@ export default function Home() {
       {/* Projects */}
       <section id="projects" className="scroll-mt-24 py-16">
         <SectionTitle eyebrow="Projects" title="프로젝트" />
+        <p className="-mt-6 mb-8 text-sm text-[var(--color-text-soft)]">
+          개별 프로젝트를 클릭하면 상세히 볼 수 있습니다.
+        </p>
         <div className="grid gap-5 sm:grid-cols-2">
           {projects.map((project) => (
             <ProjectCard key={project.slug} project={project} />
