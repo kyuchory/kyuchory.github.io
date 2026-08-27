@@ -50,24 +50,24 @@ export const projects = [
     galleryAspect: 'wide',
     gallery: [
       {
-        category: '대시보드 & 자동매매 조건',
+        category: '로그인 & 대시보드',
         images: [
+          { src: aqLogin, alt: '카카오 로그인' },
           { src: aqDashboard, alt: '실시간 시세 대시보드' },
-          { src: aqTrigger, alt: '조건부 자동매매 조건 설정' },
         ],
       },
       {
-        category: 'AI 리포트 & 반자동 신호',
+        category: '자동매매조건 & 반자동',
         images: [
-          { src: aqAiReport, alt: 'AI 투자 리포트' },
+          { src: aqTrigger, alt: '조건부 자동매매 조건 설정' },
           { src: aqTriggerHalfAuto, alt: 'AI 반자동 매매 신호 제안 모달' },
         ],
       },
       {
-        category: '로그인 & 포트폴리오',
+        category: '포트폴리오 & AI리포트',
         images: [
-          { src: aqLogin, alt: '카카오 로그인' },
           { src: aqPortfolio, alt: '포트폴리오 보유 종목 현황' },
+          { src: aqAiReport, alt: 'AI 투자 리포트' },
         ],
       },
     ],

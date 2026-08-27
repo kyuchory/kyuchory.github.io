@@ -54,6 +54,12 @@ export default function Home() {
         <SectionTitle eyebrow="About" title="소개" />
         <p className="text-[15px] leading-relaxed text-[var(--color-text-soft)]">{profile.bio}</p>
 
+        {profile.military && (
+          <p className="mt-3 text-xs text-[var(--color-text-soft)]">
+            병역 · {profile.military.detail} ({profile.military.period})
+          </p>
+        )}
+
         <div className="mt-10 grid gap-6 sm:grid-cols-2">
           {profile.highlights.map((item) => (
             <div
@@ -154,34 +160,34 @@ export default function Home() {
           {profile.certifications.map((cert) => (
             <li
               key={cert.name}
-              className="flex justify-between border-b border-[var(--color-border)] pb-3 text-sm"
+              className="flex flex-col gap-1 border-b border-[var(--color-border)] pb-3 text-sm sm:flex-row sm:items-baseline sm:justify-between"
             >
-              <span className="text-[var(--color-text)]">
-                {cert.name}
-                {cert.org && <span className="ml-2 text-xs text-[var(--color-text-soft)]">{cert.org}</span>}
-              </span>
-              <span className="text-[var(--color-text-soft)]">{cert.date}</span>
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="rounded-full bg-[var(--color-accent-soft)] px-2.5 py-0.5 text-xs font-medium text-[var(--color-accent)]">
+                  자격증
+                </span>
+                <span className="text-[var(--color-text)]">{cert.name}</span>
+                {cert.org && <span className="text-xs text-[var(--color-text-soft)]">{cert.org}</span>}
+              </div>
+              <span className="shrink-0 text-[var(--color-text-soft)]">{cert.date}</span>
             </li>
           ))}
           {profile.languages.map((lang) => (
             <li
               key={lang.name}
-              className="flex justify-between border-b border-[var(--color-border)] pb-3 text-sm"
+              className="flex flex-col gap-1 border-b border-[var(--color-border)] pb-3 text-sm sm:flex-row sm:items-baseline sm:justify-between"
             >
-              <span className="text-[var(--color-text)]">
-                {lang.name} · {lang.level}
-              </span>
-              <span className="text-[var(--color-text-soft)]">{lang.date}</span>
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="rounded-full bg-[var(--color-accent-soft)] px-2.5 py-0.5 text-xs font-medium text-[var(--color-accent)]">
+                  어학
+                </span>
+                <span className="text-[var(--color-text)]">
+                  {lang.name} · {lang.level}
+                </span>
+              </div>
+              <span className="shrink-0 text-[var(--color-text-soft)]">{lang.date}</span>
             </li>
           ))}
-          {profile.military && (
-            <li className="flex justify-between border-b border-[var(--color-border)] pb-3 text-sm">
-              <span className="text-[var(--color-text)]">
-                병역 <span className="ml-2 text-xs text-[var(--color-text-soft)]">{profile.military.detail}</span>
-              </span>
-              <span className="text-[var(--color-text-soft)]">{profile.military.period}</span>
-            </li>
-          )}
         </ul>
       </section>
 
