@@ -1,3 +1,10 @@
+import aqHeader from '../assets/autoquant/AutoQuant.AI_header.png'
+import aqLogin from '../assets/autoquant/1.login.png'
+import aqDashboard from '../assets/autoquant/2.dashboard.png'
+import aqPortfolio from '../assets/autoquant/3.portfolio.png'
+import aqTrigger from '../assets/autoquant/4.trigger.png'
+import aqTriggerHalfAuto from '../assets/autoquant/5.trigger_halfauto.png'
+import aqAiReport from '../assets/autoquant/6.ai_report.png'
 import atHeader from '../assets/animaltalk/animal_talk_header.webp'
 import atHome from '../assets/animaltalk/1.home.webp'
 import atFeed from '../assets/animaltalk/2.feed.webp'
@@ -11,6 +18,134 @@ import atChatList from '../assets/animaltalk/9.chat_list.webp'
 import atWritePost from '../assets/animaltalk/10.write_post.webp'
 
 export const projects = [
+  {
+    slug: 'autoquant-ai',
+    name: 'AutoQuant.AI',
+    englishName: 'AutoQuant.AI',
+    coverImage: aqHeader,
+    galleryAspect: 'wide',
+    gallery: [
+      {
+        category: '대시보드 & 자동매매 조건',
+        images: [
+          { src: aqDashboard, alt: '실시간 시세 대시보드' },
+          { src: aqTrigger, alt: '조건부 자동매매 조건 설정' },
+        ],
+      },
+      {
+        category: 'AI 리포트 & 반자동 신호',
+        images: [
+          { src: aqAiReport, alt: 'AI 투자 리포트' },
+          { src: aqTriggerHalfAuto, alt: 'AI 반자동 매매 신호 제안 모달' },
+        ],
+      },
+      {
+        category: '로그인 & 포트폴리오',
+        images: [
+          { src: aqLogin, alt: '카카오 로그인' },
+          { src: aqPortfolio, alt: '포트폴리오 보유 종목 현황' },
+        ],
+      },
+    ],
+    period: '2026.07 ~ 2026.08',
+    status: '개인 프로젝트',
+    role: '1인 풀스택 (기획 · 설계 · 개발)',
+    summary:
+      'KIS 실시간 시세와 뉴스 AI 감정분석을 결합해, 가격·손절·익절·트레일링 스탑·AI 점수 조건에 따라 자동으로 매매를 체결하는 실시간 금융 모의투자 시스템',
+    description:
+      'Spring Boot(백엔드)와 Next.js(프론트엔드)로 구축한 실시간 금융 데이터 파이프라인 + AI 모의투자 플랫폼입니다. 한국투자증권(KIS) Open API WebSocket으로 국내 대형주 10종목의 실시간 체결가를 구독하고, 네이버 뉴스 API로 수집한 뉴스를 OpenAI로 감정 분석·임베딩해 MySQL VECTOR(1536) 컬럼 기반 RAG 리포트를 생성합니다. 여기에 가격/손절/익절/트레일링 스탑/AI 점수 조건을 AND·OR로 결합하는 조건부 자동매매 엔진을 얹어, 조건이 충족되면 모의투자 계좌로 자동 주문이 체결되도록 설계했습니다.',
+    stack: {
+      Backend: ['Spring Boot 3.5', 'Java 17', 'Spring AI', 'JWT', 'OAuth 2.0 (Kakao)'],
+      Frontend: ['Next.js 16 (App Router)', 'React 19', 'TypeScript', 'Tailwind CSS v4', 'Zustand'],
+      Database: ['MySQL 9 (VECTOR)', 'Redis', 'RabbitMQ'],
+      'AI · 외부 연동': ['OpenAI API (Chat/Embedding)', '한국투자증권(KIS) Open API', '네이버 뉴스 검색 API'],
+    },
+    myRole: [
+      '조건(주문 액션) + 트리거(발동 조건) 1:N 분리 구조로 가격·손절·익절·트레일링 스탑·AI 점수 기반 조건부 자동매매 엔진 설계 및 구현',
+      'Spring 이벤트 기반 아키텍처(ApplicationEvent + 전용 스레드풀 @Async)로 KIS 웹소켓 수신 스레드와 주문 실행 스레드를 분리해 블로킹 문제 해결',
+      '한국투자증권(KIS) WebSocket 실시간 체결가 구독, 재연결·재구독 로직, REST 인증 토큰 자동 갱신 스케줄러 구현',
+      'OpenAI API 기반 뉴스 감정 분석(0~100점) + 임베딩 생성 파이프라인을 RabbitMQ 비동기 워커로 구축',
+      'MySQL 네이티브 VECTOR(1536) 컬럼과 코사인 유사도 검색으로 별도 Vector DB 없이 RAG 투자 리포트 생성 구현',
+      'Redis 캐싱 계층(시세·토큰·동시성 락·레이트리미터) 설계 및 락 TTL과 외부 API 응답시간 간의 정합성 검증',
+      'Next.js(App Router) + Zustand + React Query 기반 프론트엔드 실시간 대시보드 개발 (실시간 시세, 조건 등록, AI 리포트, WebSocket 알림)',
+      '도메인별 MySQL 제약조건(UNIQUE/CHECK) 명명 규칙과 CustomException 1:1 매핑으로 예외 처리 체계화',
+    ],
+    links: {
+      github: 'https://github.com/kyuchory/AutoQuant.AI',
+    },
+    caseStudies: [
+      {
+        title: '조건 매칭 엔진의 이벤트 처리 스레드 블로킹 문제 해결',
+        problem:
+          'KIS 실시간 체결가 수신 → 조건 매칭 → 주문 실행으로 이어지는 이벤트 체인이 KIS WebSocket의 단일 이벤트 루프 스레드에서 그대로 동기 처리되어, 조건 하나만 매칭돼도 해당 스레드가 최대 8초간 블로킹되고 그 사이 모니터링 중인 10개 종목의 실시간 체결 데이터 수신이 전부 멈췄습니다.',
+        cause:
+          '이벤트 발행부(KisWebsocketClient)와 리스너부(ConditionMatchingEngine) 사이에 비동기 경계가 없어, Spring의 ApplicationEventPublisher.publishEvent()가 기본값인 동기 호출로 동작해 리스너가 발행 스레드에서 즉시 실행됐습니다. 그 안에서 KIS 주문 API를 WebClient.block()으로 동기 호출한 것이 근본 원인이었습니다.',
+        solution:
+          '조건 매칭 전용 스레드풀(ThreadPoolTaskExecutor)을 구성하고 이벤트 리스너에 @Async(CONDITION_MATCHING_EXECUTOR)를 적용해, KIS 웹소켓 수신 스레드와 조건 매칭·주문 실행 스레드를 물리적으로 분리했습니다.',
+        result: [
+          'KIS 웹소켓 수신 스레드가 주문 응답을 기다리며 블로킹되는 현상 제거',
+          '조건 매칭·주문 처리 중에도 10종목 실시간 시세 수신 유지',
+          '전용 스레드(cond-match-N)에서 매칭이 처리됨을 로그로 검증, 회귀 테스트로 @Async 누락 시 실패하도록 고정',
+        ],
+      },
+      {
+        title: 'Redis 락 TTL과 주문 응답 시간 불일치로 인한 중복 주문 레이스 컨디션',
+        problem:
+          '동일 조건의 중복 체결을 막기 위해 Redis 락(TTL 4초)을 걸었지만, KIS 주문 API의 실제 최대 응답 시간(레이트리미터 대기 3초 + HTTP 타임아웃 5초 = 최대 8초)이 락 TTL보다 길어, 4~8초 사이에 락이 먼저 풀리며 같은 조건에 대한 매수·매도 주문이 중복 발생할 수 있었습니다.',
+        cause:
+          '락 TTL을 "2차 방어선"이라는 목적만 고려해 정했을 뿐, 실제로 락이 지켜야 할 구간(주문 요청~응답)의 최대 소요 시간을 역산하지 않았습니다.',
+        solution:
+          '락 TTL을 KIS 주문 처리 최대 소요 시간(8초)보다 여유 있게 10초로 상향하고, Redis 키 설계 문서에 TTL 산정 근거(주문 최대 소요시간 + 여유분)를 명시했습니다.',
+        result: [
+          '락 만료로 인한 중복 주문 재현 케이스 제거',
+          '락 TTL이 10초 미만이면 실패하는 회귀 테스트로 재발 방지',
+          '1차 방어(is_active 상태 전환) + 2차 방어(Redis 락) 이중 구조의 실효성 확보',
+        ],
+      },
+      {
+        title: '트레일링 스탑 부호 미검증으로 인한 반복 매도 위험 버그',
+        problem:
+          '트레일링 스탑(고점 대비 -N% 하락 시 매도) 조건 등록 시 목표값 부호를 검증하지 않아, 0 이상의 값이 들어가면 "현재가 ≤ 기준가" 비교가 사실상 항상 참이 되어버려, 반복 매매 조건에서는 매 체결 틱마다 매도가 재발동될 수 있는 실질적 손실 위험이 있었습니다.',
+        cause:
+          '커스텀 검증 로직이 트리거 타입·기준값·비교 방식의 조합만 검사하고, 트레일링 스탑 특유의 "목표값은 반드시 음수(하락률)"라는 도메인 제약을 놓쳤습니다.',
+        solution:
+          '조건 검증 로직에 트레일링 스탑 타입에 한해 목표값이 음수인지 확인하는 검증을 추가해, 잘못된 조건은 등록 단계에서 즉시 거부되도록 방어했습니다.',
+        result: [
+          '0 이상 값으로 트레일링 스탑을 등록하는 요청을 API 레벨에서 즉시 차단',
+          '반복 매도로 인한 잠재적 자산 손실 시나리오 원천 제거',
+          '단위 테스트로 재발 방지 고정',
+        ],
+      },
+      {
+        title: 'AND 결합 조건에서 트레일링 스탑 고점 갱신이 트리거 평가 순서에 의존하는 버그',
+        problem:
+          'AND로 묶인 여러 트리거 중 하나라도 불일치하면 즉시 평가를 중단하는 구조였는데, 트레일링 스탑의 고점 갱신 로직이 그 평가 함수 안에 있어, 트리거 등록 순서에 따라 특정 체결 틱에서 고점이 갱신되지 않고 누락되는 문제가 있었습니다.',
+        cause:
+          '"조건 판정"과 "고점 상태 갱신"이라는 서로 다른 책임이 하나의 평가 메서드에 섞여 있어, 조기 반환(short-circuit) 로직이 부작용(상태 갱신)까지 함께 건너뛰게 만들었습니다.',
+        solution:
+          '고점 갱신 로직을 별도 메서드로 분리하고, AND·OR 매칭 루프를 돌기 전 등록된 모든 트리거에 대해 먼저 실행하도록 순서를 바꿔, 매칭 결과와 무관하게 고점이 항상 최신 상태로 유지되도록 했습니다.',
+        result: [
+          '트리거 등록 순서와 무관하게 고점이 매 체결 틱마다 갱신됨을 보장',
+          'AND 조건 조기 반환 로직과 상태 갱신 로직의 책임 분리',
+          '특정 트리거 순서 조합에 대한 단위 테스트로 회귀 방지',
+        ],
+      },
+      {
+        title: '고빈도 조회 쿼리의 복합 인덱스 누락으로 인한 잠재적 병목 제거',
+        problem:
+          '가격 체결 틱마다(10종목 × 초당 다회) 활성 조건을 조회하는 쿼리가 거래 로직에서 가장 빈번하게 실행되는데, 정작 이 조회에 필요한 종목 코드 + 활성 여부 복합 인덱스가 없어 데이터가 늘어날수록 풀스캔에 가까운 조회로 저하될 소지가 있었습니다.',
+        cause:
+          '외래키 제약으로 종목 코드 단일 컬럼 인덱스는 이미 존재해 조회가 겉으로는 정상 동작했지만, is_active 필터링까지 포함한 인덱스 커버리지는 별도로 검토되지 않았습니다.',
+        solution:
+          '(stock_code, is_active) 복합 인덱스를 추가해, 기존 단일 컬럼 인덱스를 복합 인덱스의 왼쪽 접두사로 자연스럽게 흡수시켰습니다.',
+        result: [
+          '체결 틱마다 반복되는 활성 조건 조회의 인덱스 커버리지 확보',
+          'SHOW INDEX로 인덱스 생성을 검증하고 DDL 문서에 반영',
+          '데이터 증가에 따른 잠재적 성능 저하 요인 사전 제거',
+        ],
+      },
+    ],
+  },
   {
     slug: 'animaltalk',
     name: '애니멀톡',

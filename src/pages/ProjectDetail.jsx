@@ -99,7 +99,11 @@ export default function ProjectDetail() {
                 <p className="text-xs font-medium tracking-wide text-[var(--color-text-soft)] uppercase">
                   {group.category}
                 </p>
-                <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-4">
+                <div
+                  className={`mt-3 grid grid-cols-2 gap-3 ${
+                    project.galleryAspect === 'wide' ? 'sm:grid-cols-2' : 'sm:grid-cols-4'
+                  }`}
+                >
                   {group.images.map((image) => (
                     <a
                       key={image.src}
@@ -111,7 +115,9 @@ export default function ProjectDetail() {
                       <img
                         src={image.src}
                         alt={image.alt}
-                        className="aspect-[9/19] w-full object-cover object-top transition hover:scale-[1.03]"
+                        className={`w-full object-cover object-top transition hover:scale-[1.03] ${
+                          project.galleryAspect === 'wide' ? 'aspect-[16/10]' : 'aspect-[9/19]'
+                        }`}
                       />
                     </a>
                   ))}

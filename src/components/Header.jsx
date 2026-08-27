@@ -6,6 +6,8 @@ const NAV_ITEMS = [
   { label: '소개', hash: '#about' },
   { label: '기술', hash: '#skills' },
   { label: '경력', hash: '#career' },
+  { label: '자격증', hash: '#certifications' },
+  { label: '수상', hash: '#awards' },
   { label: '프로젝트', hash: '#projects' },
 ]
 

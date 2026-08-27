@@ -5,6 +5,8 @@ const ITEMS = [
   { id: 'about', label: '소개' },
   { id: 'skills', label: '기술' },
   { id: 'career', label: '경력' },
+  { id: 'certifications', label: '자격증' },
+  { id: 'awards', label: '수상' },
   { id: 'projects', label: '프로젝트' },
 ]
 

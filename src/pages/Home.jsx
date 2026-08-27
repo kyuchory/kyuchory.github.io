@@ -93,7 +93,7 @@ export default function Home() {
 
       {/* Career */}
       <section id="career" className="scroll-mt-24 py-16">
-        <SectionTitle eyebrow="Career" title="경력 · 학력" />
+        <SectionTitle eyebrow="Career" title="경력 · 학력 · 경험" />
 
         <div className="space-y-5">
           {[...profile.career, ...profile.education].map((item) => (
@@ -102,52 +102,94 @@ export default function Home() {
               className="flex flex-col gap-1 border-b border-[var(--color-border)] pb-5 sm:flex-row sm:items-baseline sm:justify-between"
             >
               <div>
-                <h3 className="text-[15px] font-semibold text-[var(--color-text)]">{item.org}</h3>
-                <p className="mt-0.5 text-sm text-[var(--color-text-soft)]">{item.role}</p>
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="rounded-full bg-[var(--color-accent-soft)] px-2.5 py-0.5 text-xs font-medium text-[var(--color-accent)]">
+                    {item.type}
+                  </span>
+                  <h3 className="text-[15px] font-semibold text-[var(--color-text)]">{item.org}</h3>
+                </div>
+                <p className="mt-1.5 text-sm text-[var(--color-text-soft)]">{item.role}</p>
+
+                {(item.gpaOverall || item.gpaMajor) && (
+                  <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs text-[var(--color-text-soft)]">
+                    {item.gpaOverall && <span>{item.gpaOverall}</span>}
+                    {item.gpaMajor && <span>{item.gpaMajor}</span>}
+                  </div>
+                )}
+
+                {item.notableCourses?.length > 0 && (
+                  <ul className="mt-2 flex flex-wrap gap-1.5">
+                    {item.notableCourses.map((course) => (
+                      <li
+                        key={course}
+                        className="rounded-md border border-[var(--color-border)] px-2 py-0.5 text-xs text-[var(--color-text-soft)]"
+                      >
+                        {course}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+
+                {item.details?.length > 0 && (
+                  <ul className="mt-2 space-y-1">
+                    {item.details.map((detail) => (
+                      <li key={detail} className="flex gap-2 text-sm leading-relaxed text-[var(--color-text-soft)]">
+                        <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-[var(--color-text-soft)]" />
+                        {detail}
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </div>
               <p className="shrink-0 text-sm text-[var(--color-text-soft)]">{item.period}</p>
             </div>
           ))}
         </div>
+      </section>
 
-        <div className="mt-10 grid gap-8 sm:grid-cols-2">
-          <div>
-            <h3 className="text-sm font-semibold text-[var(--color-text)]">자격증 · 어학</h3>
-            <ul className="mt-3 space-y-2">
-              {profile.certifications.map((cert) => (
-                <li key={cert.name} className="flex justify-between text-sm">
-                  <span className="text-[var(--color-text-soft)]">{cert.name}</span>
-                  <span className="text-[var(--color-text-soft)]">{cert.date}</span>
-                </li>
-              ))}
-              {profile.languages.map((lang) => (
-                <li key={lang.name} className="flex justify-between text-sm">
-                  <span className="text-[var(--color-text-soft)]">
-                    {lang.name} · {lang.level}
-                  </span>
-                  <span className="text-[var(--color-text-soft)]">{lang.date}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
+      {/* Certifications & Languages */}
+      <section id="certifications" className="scroll-mt-24 py-16">
+        <SectionTitle eyebrow="Certifications" title="자격증 · 어학" />
+        <ul className="space-y-3">
+          {profile.certifications.map((cert) => (
+            <li
+              key={cert.name}
+              className="flex justify-between border-b border-[var(--color-border)] pb-3 text-sm"
+            >
+              <span className="text-[var(--color-text)]">{cert.name}</span>
+              <span className="text-[var(--color-text-soft)]">{cert.date}</span>
+            </li>
+          ))}
+          {profile.languages.map((lang) => (
+            <li
+              key={lang.name}
+              className="flex justify-between border-b border-[var(--color-border)] pb-3 text-sm"
+            >
+              <span className="text-[var(--color-text)]">
+                {lang.name} · {lang.level}
+              </span>
+              <span className="text-[var(--color-text-soft)]">{lang.date}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
 
-          <div>
-            <h3 className="text-sm font-semibold text-[var(--color-text)]">수상 경력</h3>
-            <ul className="mt-3 space-y-4">
-              {profile.awards.map((award) => (
-                <li key={award.title}>
-                  <p className="text-sm font-medium text-[var(--color-text)]">{award.title}</p>
-                  <p className="text-xs text-[var(--color-text-soft)]">
-                    {award.org} · {award.date}
-                  </p>
-                  <p className="mt-1 text-sm leading-relaxed text-[var(--color-text-soft)]">
-                    {award.description}
-                  </p>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
+      {/* Awards */}
+      <section id="awards" className="scroll-mt-24 py-16">
+        <SectionTitle eyebrow="Awards" title="수상 경력" />
+        <ul className="space-y-6">
+          {profile.awards.map((award) => (
+            <li key={award.title} className="border-b border-[var(--color-border)] pb-6">
+              <p className="text-sm font-medium text-[var(--color-text)]">{award.title}</p>
+              <p className="mt-0.5 text-xs text-[var(--color-text-soft)]">
+                {award.org} · {award.date}
+              </p>
+              <p className="mt-2 text-sm leading-relaxed text-[var(--color-text-soft)]">
+                {award.description}
+              </p>
+            </li>
+          ))}
+        </ul>
       </section>
 
       {/* Projects */}
