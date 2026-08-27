@@ -118,12 +118,14 @@ export const profile = {
     Frontend: ['React', 'React Native', 'Next.js', 'TypeScript', 'Zustand'],
     Backend: [
       'Node.js (Express)',
+      'Spring Boot',
       'RESTful API',
       'JWT 인증/인가',
       'Sequelize ORM',
+      'RabbitMQ',
       '트랜잭션 · 비즈니스 로직',
     ],
-    Database: ['MySQL', 'SQL 쿼리 최적화 · 데이터 모델링'],
+    Database: ['MySQL', 'Redis', 'SQL 쿼리 최적화 · 데이터 모델링'],
     'DevOps / Infra': [
       'Naver Cloud Platform (Ubuntu Server)',
       'Object Storage (S3-compatible)',
