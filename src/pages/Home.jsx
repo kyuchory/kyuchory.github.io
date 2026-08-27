@@ -91,7 +91,7 @@ export default function Home() {
 
       {/* Career */}
       <section id="career" className="scroll-mt-24 py-16">
-        <SectionTitle eyebrow="Career" title="경력 · 학력 · 경험" />
+        <SectionTitle eyebrow="Career" title="학력 · 경력 · 경험" />
 
         <div className="space-y-5">
           {[...profile.education, ...profile.career].map((item) => (
