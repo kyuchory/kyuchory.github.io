@@ -45,7 +45,7 @@ export default function ProjectNav({ slug }) {
   if (items.length === 0) return null
 
   return (
-    <nav className="fixed top-1/2 left-6 z-30 hidden -translate-y-1/2 lg:block">
+    <nav className="fixed top-1/2 right-6 z-30 hidden -translate-y-1/2 lg:block">
       <div className="flex flex-col gap-1 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)]/90 p-1.5 shadow-sm backdrop-blur">
         <Link
           to="/#projects"
