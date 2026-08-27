@@ -70,7 +70,7 @@ export default function Home() {
 
         <div className="mt-8 space-y-1 text-sm text-[var(--color-text-soft)]">
           <p>
-            {profile.name} · {profile.englishName} · {profile.hanjaName}
+            {profile.name} · {profile.englishName} · {profile.hanjaName} · {profile.birthday}
           </p>
           {profile.military && (
             <p>
