@@ -1,10 +1,34 @@
-import aqHeader from '../assets/autoquant/AutoQuant.AI_header.png'
-import aqLogin from '../assets/autoquant/1.login.png'
-import aqDashboard from '../assets/autoquant/2.dashboard.png'
-import aqPortfolio from '../assets/autoquant/3.portfolio.png'
-import aqTrigger from '../assets/autoquant/4.trigger.png'
-import aqTriggerHalfAuto from '../assets/autoquant/5.trigger_halfauto.png'
-import aqAiReport from '../assets/autoquant/6.ai_report.png'
+import aqHeader from '../assets/autoquant/AutoQuant.AI_header.webp'
+import aqLogin from '../assets/autoquant/1.login.webp'
+import aqDashboard from '../assets/autoquant/2.dashboard.webp'
+import aqPortfolio from '../assets/autoquant/3.portfolio.webp'
+import aqTrigger from '../assets/autoquant/4.trigger.webp'
+import aqTriggerHalfAuto from '../assets/autoquant/5.trigger_halfauto.webp'
+import aqAiReport from '../assets/autoquant/6.ai_report.webp'
+import mgHeader from '../assets/mango/header.webp'
+import mgHome1 from '../assets/mango/home1.webp'
+import mgHome2 from '../assets/mango/home2.webp'
+import mgPosts1 from '../assets/mango/posts1.webp'
+import mgPosts2 from '../assets/mango/posts2.webp'
+import mgPosts3 from '../assets/mango/posts3.webp'
+import mgPosts4 from '../assets/mango/posts4.webp'
+import mgPosts5 from '../assets/mango/posts5.webp'
+import mgProfile1 from '../assets/mango/profile1.webp'
+import mgProfile2 from '../assets/mango/profile2.webp'
+import mgProfile3 from '../assets/mango/profile3.webp'
+import mgChat1 from '../assets/mango/chat&notification1.webp'
+import mgChat2 from '../assets/mango/chat&notification2.webp'
+import krHeader from '../assets/karing/header.webp'
+import krDesktop1 from '../assets/karing/desktop1.webp'
+import krDesktop2 from '../assets/karing/desktop2.webp'
+import krDesktop3 from '../assets/karing/desktop3.webp'
+import krDesktop4 from '../assets/karing/desktop4.webp'
+import krDesktop5 from '../assets/karing/desktop5.webp'
+import krDesktop6 from '../assets/karing/desktop6.webp'
+import krMobile1 from '../assets/karing/mobile1.webp'
+import krMobile2 from '../assets/karing/mobile2.webp'
+import krMobile3 from '../assets/karing/mobile3.webp'
+import krMobile4 from '../assets/karing/mobile4.webp'
 import atHeader from '../assets/animaltalk/animal_talk_header.webp'
 import atHome from '../assets/animaltalk/1.home.webp'
 import atFeed from '../assets/animaltalk/2.feed.webp'
@@ -144,6 +168,21 @@ export const projects = [
           '데이터 증가에 따른 잠재적 성능 저하 요인 사전 제거',
         ],
       },
+      {
+        title: '제한된 컨텍스트에서 AI 환각을 억제하는 RAG 프롬프트 설계',
+        problem:
+          '네이버 뉴스 API는 기사 본문 전체가 아닌 요약(description)만 제공했는데, 이 제한된 정보만으로 LLM에게 감정 분석과 투자 리포트 생성을 맡기면 주어진 컨텍스트를 벗어나 사실을 임의로 지어내는 환각(Hallucination) 현상이 발생할 위험이 있었습니다. 또한 종목·리포트 요청마다 매번 즉시 API를 호출하는 구조는 종목 수가 늘어날수록 비용과 응답 지연이 함께 커지는 구조였습니다.',
+        cause:
+          '요약 텍스트만으로는 컨텍스트가 부족해 LLM이 빈 정보를 그럴듯한 문장으로 채우려는 경향이 있었고, 임베딩·유사도 검색으로 주입하는 컨텍스트와 프롬프트 설계가 분리되어 있으면 무관하거나 불충분한 근거로도 확신에 찬 답변이 나올 수 있었습니다.',
+        solution:
+          '별도 Vector DB 없이 MySQL 네이티브 VECTOR(1536) 컬럼과 Spring AI의 ChatModel/VectorStore를 조합해 뉴스 임베딩과 코사인 유사도 검색 기반 RAG 파이프라인을 구축했습니다. 프롬프트에는 "주입된 컨텍스트 안에서만 근거를 찾고, 컨텍스트에 없는 사실은 생성하지 말 것"을 명시적으로 지시해 환각을 억제했고, 산출된 감성 점수(0~100)는 단일 뉴스 하나에 휘둘리지 않도록 24시간 이동평균으로 관리해 조건 매매 트리거와 반자동 주문 제안에 활용했습니다. 리포트 생성은 RabbitMQ 비동기 워커로 처리하고 Redis로 종목당 30초 단위 레이트리밋을 걸어 비용과 응답 지연을 함께 제어했습니다.',
+        result: [
+          '별도 Vector DB 인프라 없이 MySQL만으로 RAG 파이프라인 구축',
+          '컨텍스트 범위를 벗어난 사실 생성(환각) 억제',
+          '24시간 이동평균 기반 감성 점수로 단발성 뉴스에 휘둘리지 않는 조건 매매 트리거 확보',
+          '비동기 처리 + 레이트리밋으로 API 비용과 응답 지연 동시 제어',
+        ],
+      },
     ],
   },
   {
@@ -227,6 +266,7 @@ export const projects = [
     links: {
       githubClient: 'https://github.com/kyuchory/sa-native',
       githubServer: 'https://github.com/kyuchory/sa-server',
+      playstore: 'https://play.google.com/store/apps/details?id=your.app',
     },
     caseStudies: [
       {
@@ -314,45 +354,231 @@ export const projects = [
     ],
   },
   {
-    slug: 'dental-community',
-    name: '중국 치과의사 전용 커뮤니티',
-    englishName: 'Dental Community Web Service',
-    period: '2025.04 ~ 2025.08',
-    status: '비공개 (사내 프로젝트)',
-    role: '프론트엔드 단독 개발',
-    summary: '실사용자 100명 이상의 중국 치과의사 대상 웹 커뮤니티 서비스',
+    slug: 'mango-guava',
+    name: '망고와 구아바',
+    englishName: 'Mango & Guava',
+    coverImage: mgHeader,
+    galleryAspect: 'wide',
+    gallery: [
+      {
+        category: 'Home',
+        images: [
+          { src: mgHome1, alt: '홈 화면 - 배너 & 상품 목록' },
+          { src: mgHome2, alt: '홈 화면 - 카테고리별 상품 목록' },
+        ],
+      },
+      {
+        category: 'Posts',
+        images: [
+          { src: mgPosts1, alt: '상품 등록' },
+          { src: mgPosts2, alt: '상품 등록 - 옵션 입력' },
+          { src: mgPosts3, alt: '상품 상세' },
+          { src: mgPosts4, alt: '상품 상세 - 이미지' },
+          { src: mgPosts5, alt: '상품 상세 - 판매자 정보' },
+        ],
+      },
+      {
+        category: 'Profile',
+        images: [
+          { src: mgProfile1, alt: '마이페이지' },
+          { src: mgProfile2, alt: '프로필 편집' },
+          { src: mgProfile3, alt: '판매/구매 내역' },
+        ],
+      },
+      {
+        category: 'Chat & Notification',
+        images: [
+          { src: mgChat1, alt: '채팅 목록' },
+          { src: mgChat2, alt: '채팅 상세 & 알림' },
+        ],
+      },
+    ],
+    period: '2024.08 ~ 2025.01',
+    status: '2인 팀 프로젝트',
+    role: '2인 풀스택 (백엔드 전담 · 채팅 기능 개발)',
+    summary: 'WebSocket 기반 실시간 채팅으로 신뢰 기반 거래를 지원하는 중고거래 웹 플랫폼',
     description:
-      '주식회사 클로이소프트에서 진행한 실서비스 프로젝트로, Next.js(App Router) 기반 프론트엔드 개발을 단독으로 전담했습니다. 회사 자산이라 코드는 공개할 수 없지만, 다국어·권한 처리와 협업 프로세스에서 겪은 문제를 기록합니다.',
+      '상품 등록, 찜, 거래 후기, 알림 등 사용자 간 신뢰 기반 거래를 지원하는 커뮤니티형 중고거래 웹 플랫폼입니다. WebSocket 기반 실시간 메시징으로 거래 과정의 즉시성을 강화했고, Axios Interceptor 기반 인증 처리와 URL 상태 기반 필터링 구조로 안정적이고 확장 가능한 아키텍처를 설계했습니다.',
     stack: {
-      Frontend: ['Next.js (App Router)', 'TypeScript', 'Zustand', 'Tailwind CSS'],
-      협업도구: ['Figma (디자인 토큰)', 'Swagger'],
+      Frontend: [
+        'React 18.3.1',
+        'JavaScript (ES6+)',
+        'React Router DOM 6.25.1',
+        'Axios 1.7.4',
+        'React Responsive 10.0.0',
+        'js-cookie 3.0.5',
+        'CSS Modules',
+      ],
+      Backend: [
+        'Node.js (LTS)',
+        'Express 4.19.2',
+        'MySQL2 3.11.0',
+        'jsonwebtoken 9.0.2',
+        'Multer 1.4.5',
+        'ws (WebSocket) 8.18.0',
+        'CORS',
+        'Dotenv',
+      ],
     },
     myRole: [
-      'Next.js(App Router) 기반 프론트엔드 단독 개발 및 실서비스 운영 (유저 100명+)',
-      'Zustand를 활용한 전역 상태 설계로 다국어 및 복합 권한 시스템 최적화',
-      '디자인 시스템 기반의 반응형 UI 구현 및 협업 프로세스 리드',
+      'WebSocket을 활용한 실시간 채팅 및 알림 시스템 구축',
+      'Axios Interceptor를 통해 토큰 만료 시 자동 재발급 및 요청 무중단 재시도 구조 구현',
+      '채팅 기능 UI 및 데이터 연동 담당',
+      'Context API 기반 WebSocket 전역 상태 관리 구조 설계',
+      'axios를 활용한 채팅 목록/메시지 조회 등 비동기 통신 로직 구현',
+      'react-responsive를 활용해 모바일·태블릿·데스크탑 환경 대응 반응형 UI 개발',
+      '백엔드 개발을 전담하며 REST API 서버와 DB 구조를 설계·구현',
     ],
-    links: {},
-    caseStudies: [],
-    points: [
+    links: {
+      github: 'https://github.com/zzannorita/mangoAndGuava/tree/main',
+    },
+    caseStudies: [
       {
-        title: '권한 기반 라우팅 및 다국어 시스템 구축',
-        description:
-          'Zustand로 로그인, 사용자 권한(의사/학생), 다국어 상태를 통합 관리하여 일관된 유저 경험을 제공했습니다.',
+        title: 'WebSocket Context API를 통한 전역 실시간 메시지 관리',
+        problem:
+          'Header, Chat, ProductCard 등 여러 컴포넌트에서 개별적으로 WebSocket 연결을 생성해, 중복 연결로 인한 불필요한 네트워크 리소스 사용과 컴포넌트별 상태 관리로 인한 데이터 흐름 복잡화, 알림/채팅 메시지 혼재로 인한 분기 처리 어려움이 발생했습니다.',
+        cause:
+          '컴포넌트가 mount될 때마다 새 WebSocket을 생성해 동일 사용자에 대해 여러 연결이 동시에 유지됐고, 메시지를 컴포넌트마다 개별 처리해 전역 데이터 흐름이 단절됐으며, 알림과 채팅 메시지가 동일 채널로 수신되는데도 명확한 분기 구조가 없었습니다.',
+        solution:
+          'Context Provider 내부에서 단 하나의 WebSocket 연결만 생성하도록(useRef 기반) 전역 Provider를 설계하고, 수신 메시지를 newAlarm/newChat 타입별로 분리 관리했으며, 모든 컴포넌트가 useContext로 메시지를 구독하도록 구조를 통일했습니다.',
+        result: [
+          'WebSocket 중복 연결 100% 제거',
+          '전역 단일 연결 구조로 네트워크 리소스 효율성 개선',
+          '메시지 타입별 상태 분리로 코드 가독성 및 유지보수성 향상',
+          'Context 기반 구조로 컴포넌트 간 실시간 데이터 동기화 안정화',
+        ],
       },
       {
-        title: '반응형 UI 및 에러 핸들링',
-        description:
-          'Tailwind CSS를 활용해 모바일 환경에 최적화된 UI를 구현하고, 사용자 이탈을 방지하기 위한 선제적 로딩/에러 상태 처리를 적용했습니다.',
+        title: 'Axios Interceptor를 통한 토큰 자동 갱신 시스템 구축',
+        problem:
+          '액세스 토큰 만료 시 401 에러로 서비스 이용이 중단되어 사용자가 서비스 도중 갑작스럽게 로그아웃되고 매번 재로그인해야 했으며, 갱신 로직을 잘못 설계하면 무한 요청 루프가 발생할 위험도 있었습니다.',
+        cause:
+          '인증 예외 처리가 각 API 호출부에 분산되어 동일 로직이 반복 작성됐고, 토큰 갱신 이후 기존 요청을 자동 재실행하는 구조가 없었으며, 토큰 갱신 요청 자체가 401을 반환할 경우 인터셉터가 반복 실행될 위험이 있었습니다.',
+        solution:
+          'Axios Response Interceptor에서 TOKEN_EXPIRED 에러만 선별해 중앙 처리하고, Refresh Token API로 새 Access Token을 자동 발급받아 쿠키에 저장·Authorization 헤더를 갱신한 뒤 실패했던 요청을 자동 재실행하도록 구현했습니다. `_retry` 플래그로 동일 요청의 갱신 시도를 1회로 제한해 무한 루프를 방지했습니다.',
+        result: [
+          '토큰 만료 시 자동 인증 복구 시스템 구축',
+          '사용자 재로그인 없이 끊김 없는 서비스 경험 제공',
+          '인증 처리 로직 중앙화로 코드 중복 대폭 감소',
+          '요청 재시도 및 루프 방지 설계로 안정적인 인증 흐름 확보',
+        ],
       },
       {
-        title: '효율적인 협업 인터페이스 설계',
-        description:
-          '백엔드와 Swagger 기반 API 스펙을 조율해 개발 리소스를 단축하고, Figma 디자인 토큰(Color, Typo)을 시스템화해 디자인-개발 간 일관성을 유지하고 수정 공수를 줄였습니다.',
+        title: '이미지 업로드 순서 보장을 위한 FormData + JSON 전송 구조 설계',
+        problem:
+          '상품 등록 시 다중 이미지 업로드 과정에서 Multer의 비동기 파일 처리 특성상 업로드 완료 순서 기준으로 저장되어, 클라이언트가 지정한 대표 이미지 순서가 매 요청마다 뒤섞이는 문제가 있었습니다.',
+        cause:
+          '이미지 파일만 전송하고 정렬 기준 메타데이터가 없어, 서버가 병렬로 처리되는 업로드 완료 순서만으로는 클라이언트가 의도한 원래 순서를 재구성할 수 없었습니다.',
+        solution:
+          '이미지 파일과 함께 순서 정보를 JSON 문자열로 FormData에 함께 전송하고, 서버에서 imageOrder를 파싱해 업로드 파일과 매핑·정렬한 뒤 파일명에 순서 번호를 포함해 저장하도록 구현했습니다.',
+        result: [
+          '다중 이미지 업로드 시 순서 불일치 문제 완전 해결',
+          '파일 데이터 + 메타데이터 결합 구조 설계 경험 확보',
+          '서버 비동기 처리 환경에서도 데이터 정합성 유지',
+        ],
       },
       {
-        title: '운영 및 유지보수',
-        description: '실제 유저 피드백 기반 UI/UX 개선과 배포 후 발생한 버그에 실시간으로 대응했습니다.',
+        title: '트랜잭션을 통한 데이터 무결성 확보',
+        problem:
+          '상품 정보와 다중 이미지 데이터를 저장하는 과정에서 상품 Insert 성공 후 이미지 저장이 실패하면 부분 저장 상태로 DB에 남는 데이터 불일치가 발생했고, 복구를 위해 수동 조치가 필요했습니다.',
+        cause:
+          '상품 Insert와 이미지 Insert가 각각 독립적인 쿼리로 실행돼 원자성이 보장되지 않았고, 중간 실패 시 이전 작업을 되돌리는 롤백 로직이 없었습니다.',
+        solution:
+          '상품 정보 저장과 다중 이미지 저장을 하나의 DB 트랜잭션으로 묶어, 모든 Insert가 성공했을 때만 Commit하고 중간 오류 발생 시 전체 Rollback하도록 구현했습니다. try/catch로 Rollback을 보장하고 finally에서 커넥션을 반환했습니다.',
+        result: [
+          '상품-이미지 데이터 불일치 문제 100% 해결',
+          '부분 실패 시 자동 Rollback으로 데이터 정합성 완전 보장',
+          '트랜잭션 단위 처리로 서비스 안정성 크게 향상',
+        ],
+      },
+    ],
+  },
+  {
+    slug: 'karing-kr',
+    name: '(KARING.kr) 메이플스토리 캐릭터 검색 사이트',
+    englishName: 'KARING.kr',
+    coverImage: krHeader,
+    galleryAspect: 'auto',
+    gallery: [
+      {
+        category: 'Desktop View',
+        images: [
+          { src: krDesktop1, alt: '홈 화면' },
+          { src: krDesktop2, alt: '스탯 정보' },
+          { src: krDesktop3, alt: '장비 정보' },
+          { src: krDesktop4, alt: '스킬 정보' },
+          { src: krDesktop5, alt: '유니온 및 랭킹' },
+          { src: krDesktop6, alt: '본캐 찾기' },
+        ],
+      },
+      {
+        category: 'Mobile View',
+        images: [
+          { src: krMobile1, alt: '모바일 - 캐릭터 정보' },
+          { src: krMobile2, alt: '모바일 - 장비 정보' },
+          { src: krMobile3, alt: '모바일 - 스킬 정보' },
+          { src: krMobile4, alt: '모바일 - 유니온 및 랭킹' },
+        ],
+      },
+    ],
+    period: '2024.01 ~ 2024.03',
+    status: '개인 프로젝트',
+    role: '개인 프로젝트 (기획 · 개발 · 배포 · 운영)',
+    summary: '넥슨 오픈 API 기반 캐릭터 검색 사이트, 약 3개월 운영하며 누적 1만 건 이상의 API 트래픽 처리',
+    description:
+      '외부 오픈 API 활용법을 학습하기 위해 만든 메이플스토리 캐릭터 정보 검색 웹사이트입니다. React 기반으로 RESTful API 데이터를 비동기로 받아와 상태 관리 훅을 통해 동적으로 렌더링했고, GitHub Pages로 정적 배포해 약 3개월간 실제 운영하며 1만 건 이상의 API 요청 트래픽을 경험했습니다.',
+    stack: {
+      Frontend: ['React 18.2.0', 'JavaScript (ES6+)', 'CSS3', 'GitHub Pages'],
+      '라이브러리 · 도구': ['react-helmet(-async)', 'react-responsive', 'CSS Modules', '커스텀 폰트 로딩'],
+    },
+    myRole: [
+      '개인 프로젝트로 기획부터 개발, 배포 및 운영까지 전 과정 단독 수행',
+      'Nexon OpenAPI 기반 RESTful API 연동 구조 설계 및 비동기 데이터 처리 로직 구현',
+      'React 상태 관리 훅을 활용한 대규모 API 데이터 통합 및 화면 렌더링 설계',
+      '메이플스토리 테마 기반 반응형 UI/UX 디자인 및 CSS 구조 설계',
+      'GitHub Pages를 통한 실제 서비스 배포 및 운영',
+    ],
+    links: {
+      github: 'https://github.com/kyuchory/chory.gg',
+      demo: 'https://kyuchory.github.io/chory/',
+    },
+    caseStudies: [
+      {
+        title: '29개 API 동시 호출 전략으로 화면 전환 끊김 문제 해결',
+        problem:
+          '캐릭터 정보(스펙·장비·심볼·스킬 등)를 조회하려면 29개의 넥슨 Open API 호출이 필요했는데, 화면 이동 시마다 개별 호출하는 구조라 화면 전환이 버벅였고, API별 응답 속도 차이로 데이터가 단계적으로 나타나는 비일관성이 있었습니다.',
+        cause:
+          '요청마다 네트워크 연결이 새로 생성되며 지연이 발생하는 순차적 API 호출 구조였고, 각 API의 응답 타이밍이 달라 사용자 입장에서는 계속 "로딩 중"인 것처럼 보였습니다.',
+        solution:
+          '캐릭터 검색 시 필요한 29개 API를 Promise.all() 기반 병렬 호출로 변경해 모든 응답이 완료된 후 단일 상태 업데이트를 수행하고, 초기 호출로 수집한 데이터를 메모리에 캐싱해 화면 전환 시 재요청 없이 즉시 사용하도록 구현했습니다.',
+        result: [
+          '초기 로딩 이후 끊김 없는 화면 전환 구현',
+          '개별 API 호출 시 발생하던 화면 깜빡임 완전 제거',
+          '모든 데이터가 동기화된 상태로 표시되어 UI 일관성 확보',
+        ],
+      },
+      {
+        title: '데이터 밀도 높은 캐릭터 정보의 반응형 디자인 최적화',
+        problem:
+          '데스크톱 기준 고정 레이아웃으로 개발되어 모바일에서 콘텐츠가 화면을 벗어나거나 장비·스탯 UI가 좁은 화면에서 과도하게 압축되는 등, 정보 밀도가 높은 캐릭터 데이터 특성상 가독성이 크게 저하됐습니다.',
+        cause:
+          '단일 해상도를 기준으로 한 고정 width 레이아웃이었고, 디바이스별 UX(모바일 터치 vs 데스크톱 마우스 인터랙션) 차이도 고려되지 않았습니다.',
+        solution:
+          'CSS Media Query로 Desktop/Tablet/Mobile 3단계 브레이크포인트를 정의하고, 화면 크기별로 정보 표현 방식을 재구성했습니다(데스크톱: 다중 컬럼, 태블릿: 핵심 정보 축소, 모바일: 세로 스택). CSS Modules로 컴포넌트 단위 스타일을 분리해 유지보수성도 확보했습니다.',
+        result: [
+          '데스크톱/태블릿/모바일 전 환경에서 일관된 사용자 경험 제공',
+          '데이터 밀도가 높은 캐릭터 정보도 높은 가독성 유지',
+          '모바일 환경에서 스크롤 피로도 감소 및 탐색 UX 개선',
+        ],
+      },
+      {
+        title: 'React Helmet 기반 SEO 최적화',
+        problem:
+          'CSR 기반 React 구조 특성상 메타 태그가 부재하고 페이지별 SEO 정보가 구성되지 않아, Lighthouse SEO 점수가 82점에 그치며 검색 엔진 노출 가능성이 제한됐습니다.',
+        cause: 'CSR 환경에서는 초기 HTML에 페이지별 title/description/OG 태그가 채워지지 않아 크롤링 최적화가 어려웠습니다.',
+        solution:
+          'react-helmet(-async)을 도입해 페이지별로 동적 메타 태그(title/description/OG)를 설정하고, 캐릭터 검색 페이지는 검색 중심 키워드로, 메인 페이지는 서비스 설명 중심으로 컴포넌트 단위 SEO 정보를 구성했습니다.',
+        result: ['Lighthouse SEO 점수 82 → 91로 개선', '검색 엔진 노출 가능성 향상', '페이지별 SEO 구조 체계화'],
       },
     ],
   },

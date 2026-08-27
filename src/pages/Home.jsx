@@ -96,7 +96,7 @@ export default function Home() {
         <SectionTitle eyebrow="Career" title="경력 · 학력 · 경험" />
 
         <div className="space-y-5">
-          {[...profile.career, ...profile.education].map((item) => (
+          {[...profile.education, ...profile.career].map((item) => (
             <div
               key={item.org + item.period}
               className="flex flex-col gap-1 border-b border-[var(--color-border)] pb-5 sm:flex-row sm:items-baseline sm:justify-between"
@@ -156,7 +156,10 @@ export default function Home() {
               key={cert.name}
               className="flex justify-between border-b border-[var(--color-border)] pb-3 text-sm"
             >
-              <span className="text-[var(--color-text)]">{cert.name}</span>
+              <span className="text-[var(--color-text)]">
+                {cert.name}
+                {cert.org && <span className="ml-2 text-xs text-[var(--color-text-soft)]">{cert.org}</span>}
+              </span>
               <span className="text-[var(--color-text-soft)]">{cert.date}</span>
             </li>
           ))}
@@ -171,22 +174,38 @@ export default function Home() {
               <span className="text-[var(--color-text-soft)]">{lang.date}</span>
             </li>
           ))}
+          {profile.military && (
+            <li className="flex justify-between border-b border-[var(--color-border)] pb-3 text-sm">
+              <span className="text-[var(--color-text)]">
+                병역 <span className="ml-2 text-xs text-[var(--color-text-soft)]">{profile.military.detail}</span>
+              </span>
+              <span className="text-[var(--color-text-soft)]">{profile.military.period}</span>
+            </li>
+          )}
         </ul>
       </section>
 
       {/* Awards */}
       <section id="awards" className="scroll-mt-24 py-16">
         <SectionTitle eyebrow="Awards" title="수상 경력" />
-        <ul className="space-y-6">
+        <ul className="space-y-8">
           {profile.awards.map((award) => (
-            <li key={award.title} className="border-b border-[var(--color-border)] pb-6">
+            <li key={award.title} className="border-b border-[var(--color-border)] pb-8">
               <p className="text-sm font-medium text-[var(--color-text)]">{award.title}</p>
               <p className="mt-0.5 text-xs text-[var(--color-text-soft)]">
                 {award.org} · {award.date}
               </p>
-              <p className="mt-2 text-sm leading-relaxed text-[var(--color-text-soft)]">
-                {award.description}
-              </p>
+              <p className="mt-3 text-sm leading-relaxed text-[var(--color-text-soft)]">{award.summary}</p>
+              {award.highlights?.length > 0 && (
+                <ul className="mt-3 space-y-1.5">
+                  {award.highlights.map((line) => (
+                    <li key={line} className="flex gap-2 text-sm leading-relaxed text-[var(--color-text-soft)]">
+                      <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-[var(--color-text-soft)]" />
+                      {line}
+                    </li>
+                  ))}
+                </ul>
+              )}
             </li>
           ))}
         </ul>

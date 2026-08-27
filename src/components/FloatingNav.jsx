@@ -35,13 +35,13 @@ export default function FloatingNav() {
     return () => observer.disconnect()
   }, [location.pathname])
 
-  const activeId = location.pathname === '/' ? active : null
+  if (location.pathname !== '/') return null
 
   return (
     <nav className="fixed top-1/2 right-6 z-30 hidden -translate-y-1/2 lg:block">
       <div className="flex flex-col gap-1 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)]/90 p-1.5 shadow-sm backdrop-blur">
         {ITEMS.map((item) => {
-          const isActive = activeId === item.id
+          const isActive = active === item.id
           return (
             <Link
               key={item.id}

@@ -1,4 +1,5 @@
 import { Link, Navigate, useParams } from 'react-router-dom'
+import ProjectNav from '../components/ProjectNav'
 import { projects } from '../data/projects'
 
 export default function ProjectDetail() {
@@ -9,6 +10,8 @@ export default function ProjectDetail() {
 
   return (
     <div className="mx-auto max-w-3xl px-6 py-14">
+      <ProjectNav slug={slug} />
+
       <Link
         to="/#projects"
         className="inline-flex items-center gap-1 text-sm text-[var(--color-text-soft)] hover:text-[var(--color-text)]"
@@ -27,37 +30,47 @@ export default function ProjectDetail() {
         />
       )}
 
-      <div className="mt-6 flex flex-wrap items-start justify-between gap-3">
-        <div>
-          <h1 className="text-2xl font-semibold text-[var(--color-text)] sm:text-3xl">{project.name}</h1>
-          <p className="mt-1 text-sm text-[var(--color-text-soft)]">
-            {project.period} · {project.role}
-          </p>
+      <div id="overview" className="scroll-mt-24">
+        <div className="mt-6 flex flex-wrap items-start justify-between gap-3">
+          <div>
+            <h1 className="text-2xl font-semibold text-[var(--color-text)] sm:text-3xl">{project.name}</h1>
+            <p className="mt-1 text-sm text-[var(--color-text-soft)]">
+              {project.period} · {project.role}
+            </p>
+          </div>
+          <span className="shrink-0 rounded-full bg-[var(--color-accent-soft)] px-3 py-1 text-xs font-medium text-[var(--color-accent)]">
+            {project.status}
+          </span>
         </div>
-        <span className="shrink-0 rounded-full bg-[var(--color-accent-soft)] px-3 py-1 text-xs font-medium text-[var(--color-accent)]">
-          {project.status}
-        </span>
+
+        {(project.links.githubClient ||
+          project.links.githubServer ||
+          project.links.github ||
+          project.links.demo ||
+          project.links.playstore) && (
+          <div className="mt-4 flex flex-wrap gap-2">
+            {project.links.github && (
+              <LinkPill href={project.links.github} label="GitHub" icon="github" />
+            )}
+            {project.links.githubClient && (
+              <LinkPill href={project.links.githubClient} label="GitHub (Client)" icon="github" />
+            )}
+            {project.links.githubServer && (
+              <LinkPill href={project.links.githubServer} label="GitHub (Server)" icon="github" />
+            )}
+            {project.links.demo && <LinkPill href={project.links.demo} label="Live Service" icon="link" />}
+            {project.links.playstore && (
+              <LinkPill href={project.links.playstore} label="Play Store" icon="link" />
+            )}
+          </div>
+        )}
+
+        <p className="mt-8 text-[15px] leading-relaxed text-[var(--color-text-soft)]">
+          {project.description}
+        </p>
       </div>
 
-      {(project.links.githubClient || project.links.githubServer || project.links.github) && (
-        <div className="mt-4 flex flex-wrap gap-2">
-          {project.links.github && (
-            <LinkPill href={project.links.github} label="GitHub" />
-          )}
-          {project.links.githubClient && (
-            <LinkPill href={project.links.githubClient} label="GitHub (Client)" />
-          )}
-          {project.links.githubServer && (
-            <LinkPill href={project.links.githubServer} label="GitHub (Server)" />
-          )}
-        </div>
-      )}
-
-      <p className="mt-8 text-[15px] leading-relaxed text-[var(--color-text-soft)]">
-        {project.description}
-      </p>
-
-      <section className="mt-10">
+      <section id="role" className="mt-10 scroll-mt-24">
         <h2 className="text-sm font-semibold text-[var(--color-text)]">담당 역할</h2>
         <ul className="mt-3 space-y-2">
           {project.myRole.map((line) => (
@@ -69,7 +82,7 @@ export default function ProjectDetail() {
         </ul>
       </section>
 
-      <section className="mt-10">
+      <section id="stack" className="mt-10 scroll-mt-24">
         <h2 className="text-sm font-semibold text-[var(--color-text)]">기술 스택</h2>
         <div className="mt-3 grid gap-4 sm:grid-cols-2">
           {Object.entries(project.stack).map(([category, items]) => (
@@ -91,7 +104,7 @@ export default function ProjectDetail() {
       </section>
 
       {project.gallery?.length > 0 && (
-        <section className="mt-14">
+        <section id="gallery" className="mt-14 scroll-mt-24">
           <h2 className="text-lg font-semibold text-[var(--color-text)]">프로젝트 이미지</h2>
           <div className="mt-6 space-y-8">
             {project.gallery.map((group) => (
@@ -101,7 +114,9 @@ export default function ProjectDetail() {
                 </p>
                 <div
                   className={`mt-3 grid grid-cols-2 gap-3 ${
-                    project.galleryAspect === 'wide' ? 'sm:grid-cols-2' : 'sm:grid-cols-4'
+                    project.galleryAspect === 'wide' || project.galleryAspect === 'auto'
+                      ? 'sm:grid-cols-2'
+                      : 'sm:grid-cols-4'
                   }`}
                 >
                   {group.images.map((image) => (
@@ -110,15 +125,25 @@ export default function ProjectDetail() {
                       href={image.src}
                       target="_blank"
                       rel="noreferrer"
-                      className="block overflow-hidden rounded-xl border border-[var(--color-border)]"
+                      className={`block overflow-hidden rounded-xl border border-[var(--color-border)] ${
+                        project.galleryAspect === 'auto' ? 'bg-[var(--color-surface)]' : ''
+                      }`}
                     >
-                      <img
-                        src={image.src}
-                        alt={image.alt}
-                        className={`w-full object-cover object-top transition hover:scale-[1.03] ${
-                          project.galleryAspect === 'wide' ? 'aspect-[16/10]' : 'aspect-[9/19]'
-                        }`}
-                      />
+                      {project.galleryAspect === 'auto' ? (
+                        <img
+                          src={image.src}
+                          alt={image.alt}
+                          className="w-full object-contain transition hover:scale-[1.03]"
+                        />
+                      ) : (
+                        <img
+                          src={image.src}
+                          alt={image.alt}
+                          className={`w-full object-cover object-top transition hover:scale-[1.03] ${
+                            project.galleryAspect === 'wide' ? 'aspect-[16/10]' : 'aspect-[9/19]'
+                          }`}
+                        />
+                      )}
                     </a>
                   ))}
                 </div>
@@ -129,7 +154,7 @@ export default function ProjectDetail() {
       )}
 
       {project.caseStudies.length > 0 && (
-        <section className="mt-14">
+        <section id="case-studies" className="mt-14 scroll-mt-24">
           <h2 className="text-lg font-semibold text-[var(--color-text)]">문제 해결 과정</h2>
           <div className="mt-6 space-y-10">
             {project.caseStudies.map((cs, i) => (
@@ -170,7 +195,7 @@ export default function ProjectDetail() {
       )}
 
       {project.points?.length > 0 && (
-        <section className="mt-14">
+        <section id="points" className="mt-14 scroll-mt-24">
           <h2 className="text-lg font-semibold text-[var(--color-text)]">주요 작업</h2>
           <div className="mt-6 space-y-6">
             {project.points.map((point) => (
@@ -196,7 +221,15 @@ function GithubIcon() {
   )
 }
 
-function LinkPill({ href, label }) {
+function ExternalLinkIcon() {
+  return (
+    <svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
+      <path d="M6.5 3H3.6A1.6 1.6 0 0 0 2 4.6v7.8A1.6 1.6 0 0 0 3.6 14h7.8A1.6 1.6 0 0 0 13 12.4V9.5M9.5 2H14v4.5M13.5 2.5l-6 6" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
+function LinkPill({ href, label, icon }) {
   return (
     <a
       href={href}
@@ -204,7 +237,7 @@ function LinkPill({ href, label }) {
       rel="noreferrer"
       className="inline-flex items-center gap-1.5 rounded-full border border-[var(--color-border)] px-3 py-1 text-xs font-medium text-[var(--color-text)] transition hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
     >
-      <GithubIcon />
+      {icon === 'link' ? <ExternalLinkIcon /> : <GithubIcon />}
       {label}
     </a>
   )
