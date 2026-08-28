@@ -266,7 +266,7 @@ export const projects = [
     links: {
       githubClient: 'https://github.com/kyuchory/sa-native',
       githubServer: 'https://github.com/kyuchory/sa-server',
-      playstore: 'https://play.google.com/store/apps/details?id=your.app',
+      playstore: 'https://play.google.com/store/apps/details?id=com.anonymous.xMomTalk',
     },
     caseStudies: [
       {
